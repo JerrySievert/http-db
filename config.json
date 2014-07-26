@@ -1,0 +1,4 @@
+{
+  "dataDir": "/tmp/data",
+  "logFile": "/tmp/http-level.log"
+}
