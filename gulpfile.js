@@ -6,14 +6,11 @@ var shell = require('gulp-shell');
 
 var pack = require('./package.json');
 
-gulp.task('analyze', function () {
+gulp.task('complexity', function () {
   gulp.src([
     'index.js',
     'lib/*.js'
   ])
-  .pipe(jshint())
-  .pipe(jshint.reporter('jshint-stylish'))
-  .pipe(jshint.reporter('fail'))
   .pipe(complex({
     packageName: pack.name,
     packageVersion: pack.version
@@ -22,10 +19,20 @@ gulp.task('analyze', function () {
   .pipe(gulp.dest('complexity'));
 });
 
+gulp.task('jshint', function () {
+  gulp.src([
+    'index.js',
+    'lib/*.js'
+  ])
+  .pipe(jshint())
+  .pipe(jshint.reporter('jshint-stylish'))
+  .pipe(jshint.reporter('fail'))
+});
+
 gulp.task('test', shell.task([
   './node_modules/istanbul/lib/cli.js cover ./node_modules/tape/bin/tape test/*.js'
 ]));
 
-gulp.task('default', [ 'test', 'analyze' ], function () {
+gulp.task('default', [ 'test', 'jshint', 'complexity' ], function () {
 
 });

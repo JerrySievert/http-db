@@ -30,11 +30,69 @@ test('store correctly gets an item', function (t) {
   });
 });
 
+test('store correctly returns keys', function (t) {
+  t.plan(2);
+
+  store.keys('test', function (err, data) {
+    t.error(err, 'no error is returned for keys');
+    t.deepEqual(data, { keys: [ 'item' ] }, 'keys are correct');
+  });
+});
+
+test('store can delete an item', function (t) {
+  t.plan(1);
+
+  store.del('test', 'item', function (err) {
+    t.error(err, 'no error is thrown');
+  });
+});
+
 test('store can be closed', function (t) {
   t.plan(1);
 
   store.close('test', function (err) {
-    t.error(err);
+    t.error(err, 'no error is thrown for the close');
+  });
+});
+
+test('store correctly puts an item when closed', function (t) {
+  t.plan(1);
+
+  store.put('test', 'item', 'value', function (err) {
+    store.close('test', function () {
+      t.error(err, 'no error is returned for a put');
+    });
+  });
+});
+
+test('store correctly returns keys when the store is closed', function (t) {
+  t.plan(3);
+
+  store.keys('test', function (err, data) {
+    t.error(err, 'no error is returned for keys');
+    t.deepEqual(data, { keys: [ 'item' ] }, 'keys are correct');
+
+    store.close('test', function (err) {
+      t.error(err, 'no error is returned for close');
+    });
+  });
+});
+
+test('store correctly deletes an item when closed', function (t) {
+  t.plan(1);
+
+  store.del('test', 'item', function (err) {
+    store.close('test', function () {
+      t.error(err, 'no error is returned for a delete');
+    });
+  });
+});
+
+test('store correctly does not error when closed and not open', function (t) {
+  t.plan(1);
+
+  store.close('test', function (err) {
+    t.error(err, 'no error is returned for a close');
   });
 });
 
