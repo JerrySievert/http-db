@@ -21,6 +21,32 @@ test('creating a user fails when a user already exists', function (t) {
   });
 });
 
+test('retrieving a user works', function (t) {
+  t.plan(3);
+
+  user.retrieveUser('test', function (err, data) {
+    t.error(err, 'no error is returned');
+    t.ok(data, 'user data is returned');
+    t.equal(data.username, 'test', 'the username is correct');
+  });
+});
+
+test('creating a token works', function (t) {
+  t.plan(1);
+
+  user.createToken({ token: 'test', username: 'abc123' }, function (err, data) {
+    t.error(err, 'no error is returned');
+  });
+});
+
+test('creating a token fails when a user already exists', function (t) {
+  t.plan(1);
+
+  user.createToken({ token: 'test', test: 'abc123' }, function (err, data) {
+    t.ok(err, 'an error is returned');
+  });
+});
+
 test('closing databases works', function (t) {
   t.plan(1);
 
