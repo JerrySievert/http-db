@@ -1,4 +1,5 @@
 {
   "dataDir": "/tmp/data",
-  "logFile": "/tmp/http-level.log"
+  "logFile": "/tmp/http-level.log",
+  "userDir": "/tmp/users"
 }

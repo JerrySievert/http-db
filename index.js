@@ -4,6 +4,23 @@ var store = require('./lib/store');
 // Create a server with a host and port
 var server = new Hapi.Server('localhost', 8000, { payload: { maxBytes: 1048576 * 5 } });
 
+server.pack.register(require('hapi-auth-bearer-token'), function (err) {
+  server.auth.strategy('store', 'bearer-access-token', {
+    validateFunc: function( token, callback ) {
+      console.log(encodeURIComponent(this.params.store));
+      // Use a real strategy here,
+      // comparing with a token from your database for example
+      if(token === "1234"){
+        callback(null, true, { token: token });
+      } else {
+        callback(null, false, { token: token });
+      }
+    }
+  });
+});
+
+
+
 server.route({
   method: 'GET',
   path: '/data/{store}',
@@ -21,6 +38,7 @@ server.route({
 server.route({
   method: 'GET',
   path: '/data/{store}/{id}',
+  config: { auth: 'store' },
   handler: function (request, reply) {
     store.get(encodeURIComponent(request.params.store), encodeURIComponent(request.params.id), function (err, data) {
       if (err && err.notFound) {
