@@ -1,5 +1,6 @@
 var test = require('tape');
 var leveldown = require('leveldown');
+var levelup = require('levelup');
 
 var user = require('../lib/user');
 
@@ -28,6 +29,18 @@ test('retrieving a user works', function (t) {
     t.error(err, 'no error is returned');
     t.ok(data, 'user data is returned');
     t.equal(data.username, 'test', 'the username is correct');
+  });
+});
+
+test('retrieving a user fails when a user is invalid', function (t) {
+  t.plan(3);
+
+  user.databases.userDB.put('test2', 'foo', function (err) {
+    t.error(err, 'no error is returned');
+    user.retrieveUser('test2', function (err, data) {
+      t.ok(err, 'an error is thrown');
+      t.ok(err.isInvalid, 'the user is invalid');
+    });
   });
 });
 
