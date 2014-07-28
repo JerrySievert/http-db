@@ -89,7 +89,6 @@ test('auth against a token without a username fails', function (t) {
   t.plan(2);
 
   user.authStoreByToken('foo', 'test', function (err) {
-    console.log(err);
     t.ok(err, 'an error is returned');
     t.notOk(err.isValidUsername, 'username is invalid');
   });
