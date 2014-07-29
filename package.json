@@ -12,7 +12,8 @@
     "levelup": "^0.18.5",
     "hapi": "^6.2.1",
     "leveldown": "^0.10.2",
-    "hapi-auth-bearer-token": "^1.0.2"
+    "hapi-auth-bearer-token": "^1.0.2",
+    "jwt-simple": "^0.2.0"
   },
   "devDependencies": {
     "tape": "^2.13.4",
