@@ -1,0 +1,15 @@
+#!/usr/bin/env node
+
+var jwt = require('jwt-simple');
+var token = require('../lib/token');
+var config = require('../config.json');
+
+var argv = require('yargs')
+  .usage('Usage: $0 -u [username] -e [expire milliseconds]')
+  .demand([ 'u' ])
+  .default({ e: config.token.expiration })
+  .argv;
+
+var encoded = jwt.encode({ username: argv.u, expires: (+new Date()) + argv.e }, config.token.secret);
+
+console.log(encoded);
