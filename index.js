@@ -65,7 +65,7 @@ server.pack.register(require('hapi-auth-jwt-request'), function (err) {
     path: '/filter/{store}',
     config: { auth: 'store' },
     handler: function (request, reply) {
-      store.filter(encodeURIComponent(request.params.store), encodeURIComponent(request.params.key), encodeURIComponent(request.params.value), function (err, data) {
+      store.filter(encodeURIComponent(request.params.store), encodeURIComponent(request.query.key), encodeURIComponent(request.query.value), function (err, data) {
         if (err) {
           reply('').code(204);
         } else {
