@@ -1,5 +1,9 @@
 {
   "dataDir": "/tmp/data",
   "logFile": "/tmp/http-level.log",
-  "userDir": "/tmp/users"
+  "userDir": "/tmp/users",
+  "token": {
+    "secret": "mysecret",
+    "expiration": 3600000
+  }
 }
