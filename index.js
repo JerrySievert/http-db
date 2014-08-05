@@ -68,7 +68,7 @@ server.pack.register(require('hapi-auth-jwt-request'), function (err) {
       var data;
 
       try {
-        data = JSON.stringify(reply.payload);
+        data = JSON.stringify(request.payload);
       } catch (err) {
         reply('{ "status": "error", "error": "payload should be JSON" }').code(400).type('application/json');
         return;
