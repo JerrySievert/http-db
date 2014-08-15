@@ -115,7 +115,7 @@ server.pack.register(require('hapi-auth-jwt-request'), function (err) {
         if (err) {
           reply('').code(204);
         } else {
-          reply(stream).type('application/json');
+          reply(stream).type('application/jsonstream');
         }
       });
     }
