@@ -106,6 +106,20 @@ server.pack.register(require('hapi-auth-jwt-request'), function (err) {
     }
   });
 
+  server.route({
+    method: 'GET',
+    path: '/all/{store}',
+    config: { auth: 'store' },
+    handler: function (request, reply) {
+      store.all(encodeURIComponent(request.params.store), function (err, stream) {
+        if (err) {
+          reply('').code(204);
+        } else {
+          reply(stream).type('application/json');
+        }
+      });
+    }
+  });
 });
 
 
