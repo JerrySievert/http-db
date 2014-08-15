@@ -1,0 +1,28 @@
+#!/usr/bin/env node
+
+var user = require('../lib/user');
+var config = require('../config.json');
+
+var argv = require('yargs')
+  .usage('Usage: $0 -u [username] -s [store]')
+  .demand([ 'u', 's' ])
+  .argv;
+
+user.retrieve(argv.u, function (err, userData) {
+  if (err) {
+    console.log(err);
+  } else {
+    if (userData.stores.indexOf(argv.s) === -1) {
+      userData.stores.push(argv.s);
+      user.update(userData, function (err) {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log('User Updated');
+        }
+      });
+    } else {
+      console.log('Store Already Exists');
+    }
+  }
+});
