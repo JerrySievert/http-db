@@ -10,7 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "levelup": "^0.18.5",
-    "hapi": "^6.2.1",
+    "hapi": "^6.5.1",
     "leveldown": "^0.10.2",
     "hapi-auth-jwt-request": "^1.0.0",
     "jwt-simple": "^0.2.0",
