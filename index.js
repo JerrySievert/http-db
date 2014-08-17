@@ -6,7 +6,7 @@ var user = require('./lib/user');
 var config = require('./config.json');
 
 // Create a server with a host and port
-var server = new Hapi.Server('localhost', 8000, { payload: { maxBytes: 1048576 * 5 } });
+var server = new Hapi.Server(config.server.host, config.server.port, { payload: { maxBytes: 1048576 * 5 } });
 
 server.pack.register(require('hapi-auth-jwt-request'), function (err) {
   server.auth.strategy('store', 'bearer-access-token', {
