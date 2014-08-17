@@ -6,7 +6,7 @@
     "secret": "mysecret",
     "expiration": 3600000
   },
-  server: {
+  "server": {
     "host": "localhost",
     "port": 8765
   }
