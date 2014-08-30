@@ -20,10 +20,10 @@
     "tape": "^2.13.4",
     "istanbul": "^0.3.0",
     "gulp-escomplex": "^0.1.2",
-    "gulp-escomplex-reporter-json": "^0.1.3",
     "gulp": "^3.8.6",
     "gulp-jshint": "^1.8.0",
     "jshint-stylish": "^0.4.0",
-    "gulp-shell": "^0.2.8"
+    "gulp-shell": "^0.2.8",
+    "gulp-escomplex-reporter-html": "^0.1.7"
   }
 }
