@@ -96,6 +96,17 @@ server.pack.register(require('hapi-auth-jwt-request'), function (err) {
   });
 
   server.route({
+    method: 'POST',
+    path: '/query/{store}',
+    config: { auth: 'store' },
+    handler: function (request, reply) {
+      store.query(encodeURIComponent(request.params.store), request.payload, function (err, data) {
+        reply(JSON.stringify(data)).code(201).type('application/json');
+      });
+    }
+  });
+
+  server.route({
     method: 'DELETE',
     path: '/data/{store}/{id}',
     config: { auth: 'store' },
