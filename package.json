@@ -1,6 +1,6 @@
 {
   "name": "http-db",
-  "version": "0.0.0",
+  "version": "0.5.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -19,11 +19,11 @@
   "devDependencies": {
     "tape": "^2.13.4",
     "istanbul": "^0.3.0",
-    "gulp-escomplex": "^0.1.2",
+    "gulp-escomplex": "~1.0.0",
     "gulp": "^3.8.6",
     "gulp-jshint": "^1.8.0",
     "jshint-stylish": "^0.4.0",
     "gulp-shell": "^0.2.8",
-    "gulp-escomplex-reporter-html": "^0.1.7"
+    "gulp-escomplex-reporter-html": "~1.0.0"
   }
 }
