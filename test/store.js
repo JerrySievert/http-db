@@ -88,6 +88,97 @@ test('store correctly deletes an item when closed', function (t) {
   });
 });
 
+test('store returns the correct results when filter is applied', function (t) {
+  t.plan(3);
+
+  store.put('test', '1', '{ "foo": "bar" }', function () {
+    store.put('test', '2', '{ "foo": "baz" }', function () {
+      store.filter('test', 'foo', 'bar', function (err, stream) {
+        t.error(err, 'no error is returned');
+
+        var count = 0;
+        stream.on('data', function (data) {
+          data = JSON.parse(data);
+          count++;
+          t.equal(data.key, '1', 'the correct key is returned');
+          store.del('test', '1', function () {
+            store.del('test', '2', function () {
+              t.equal(count, 1, 'the correct number of results are returned');
+            });
+          });
+
+        });
+      });
+    });
+  });
+});
+
+test('store returns the correct results when filter is applied as an array', function (t) {
+  t.plan(3);
+
+  store.put('test', '1', '{ "foo": [1, 2] }', function () {
+    store.put('test', '2', '{ "foo": "baz" }', function () {
+      store.filter('test', 'foo', 1, function (err, stream) {
+        t.error(err, 'no error is returned');
+
+        var count = 0;
+        stream.on('data', function (data) {
+          data = JSON.parse(data);
+          count++;
+          t.equal(data.key, '1', 'the correct key is returned');
+          store.del('test', '1', function () {
+            store.del('test', '2', function () {
+              t.equal(count, 1, 'the correct number of results are returned');
+            });
+          });
+
+        });
+      });
+    });
+  });
+});
+
+test('store returns the correct results all is called', function (t) {
+  t.plan(2);
+
+  store.put('test', '1', '{ "foo": "bar" }', function () {
+    store.all('test', function (err, stream) {
+      t.error(err, 'no error is returned');
+
+      stream.on('data', function (data) {
+        data = JSON.parse(data);
+        t.equal(data.key, '1', 'the correct key is returned');
+        store.del('test', '1', function () {
+        });
+      });
+    });
+  });
+});
+
+test('store returns the correct results when query is called', function (t) {
+  t.plan(3);
+
+  store.put('test', '1', '{ "foo": "bar" }', function () {
+    store.put('test', '2', '{ "foo": "baz" }', function () {
+      store.query('test', { foo: "bar" }, function (err, stream) {
+        t.error(err, 'no error is returned');
+
+        var count = 0;
+        stream.on('data', function (data) {
+          count++;
+          t.equal(data.key, '1', 'the correct key is returned');
+          store.del('test', '1', function () {
+            store.del('test', '2', function () {
+              t.equal(count, 1, 'the correct number of results are returned');
+            });
+          });
+
+        });
+      });
+    });
+  });
+});
+
 test('store correctly does not error when closed and not open', function (t) {
   t.plan(1);
 

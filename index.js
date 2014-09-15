@@ -133,6 +133,62 @@ server.pack.register(require('hapi-auth-jwt-request'), function (err) {
   });
 });
 
+server.pack.register(require('hapi-auth-cookie'), function (err) {
+  server.auth.strategy('session', 'cookie', {
+    password: 'secret',
+    cookie: 'sid-example',
+    redirectTo: '/login.html',
+    isSecure: false
+  });
+
+  server.route({
+    method: 'POST',
+    path: '/api/v1/login',
+    config: {
+      auth: {
+        mode: 'try',
+        strategy: 'session'
+      },
+      plugins: {
+        'hapi-auth-cookie': {
+          redirectTo: false
+        }
+      }
+    },
+    handler: require('./api/login')
+  });
+
+  server.route({
+    method: 'GET',
+    path: '/login.html',
+    handler: function (request, reply) {
+      reply.file('./public/login.html');
+    }
+  });
+
+  // default file route
+  server.route({
+    method: 'GET',
+    path: '/{param*}',
+    config: {
+      auth: {
+        mode: 'try',
+        strategy: 'session'
+      },
+      plugins: {
+        'hapi-auth-cookie': {
+          redirectTo: '/login.html'
+        }
+      }
+    },
+    handler: {
+      directory: {
+        path: 'public'
+      }
+    }
+  });
+
+});
 
 // Start the server
 server.start(function () {
