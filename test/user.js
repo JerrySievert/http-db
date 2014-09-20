@@ -76,6 +76,34 @@ test('changing a password with a bad username fails', function (t) {
   });
 });
 
+test('authorizing against a store works', function (t) {
+  t.plan(1);
+
+  user.create({ username: 'storetest', stores: [ 'test' ], password: 'mypass', active: true }, function (err, data) {
+    user.authStoreByUsername('test', 'storetest', function (err) {
+      t.error(err, 'no error is returned');
+    });
+  });
+});
+
+test('authorizing against a store fails when not allowed', function (t) {
+  t.plan(1);
+
+  user.create({ username: 'storetest2', stores: [ 'test' ], password: 'mypass', active: true }, function (err, data) {
+    user.authStoreByUsername('test2', 'storetest2', function (err) {
+      t.ok(err, 'an error is returned');
+    });
+  });
+});
+
+test('authorizing against a store fails when a user does not exist', function (t) {
+  t.plan(1);
+
+  user.authStoreByUsername('doesnotexist', 'storetest2', function (err) {
+    t.ok(err, 'an error is returned');
+  });
+});
+
 test('closing databases works', function (t) {
   t.plan(1);
 
