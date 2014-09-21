@@ -1,5 +1,7 @@
 var app = angular.module('Application', [ ]);
 app.controller('applicationController', function ($scope, $http, $window) {
+  $scope.displayWelcome = true;
+
   $http.get('/api/v1/token').success(function (data) {
     $http.defaults.headers.common.Authorization = "Bearer " + data.token;
 
@@ -15,6 +17,8 @@ app.controller('applicationController', function ($scope, $http, $window) {
 
   $scope.storeClick = function (event) {
     $scope.store = event.srcElement.firstChild.data;
+    $scope.displayWelcome = false;
+
     $http.get('/database/all/' + $scope.store, { transformResponse: function (h, d) { return h; }}).success(function (data) {
       $scope.displayValue = false;
       $scope.displayCreate = false;

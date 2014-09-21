@@ -22,6 +22,12 @@
         <br>
       </div>
 
+      <div class="column-20" ng-if="displayWelcome">
+        <h2>Welcome</h2>
+        Hello and welcome to ReadyB, a Key/Value store accessible via HTTP.
+        <br><br>
+        Select a store to the left to continue editing.
+      </div>
       <div class="column-20" ng-if="displayKeys">
         <h2>{{store}}</h2>
         <table ng-if="values.length">
@@ -39,6 +45,7 @@
         <br ng-if="values.length">
         <button ng-click="createEntry()">Create Entry</button>
       </div>
+
       <div class="column-20" ng-if="displayEdit">
         <h2>Key: {{key}}</h2>
         <textarea ng-model="$parent.value">
@@ -46,6 +53,7 @@
         <br>
         <button ng-click="saveValue()">Save</button><button ng-click="cancelValue()">Cancel</button> <span ng-if="$parent.valueError" class="error">{{$parent.valueError}}</span>
       </div>
+
       <div class="column-20" ng-if="displayCreate">
         <input ng-model="$parent.key" placeholder="key" value="{{key}}">
         <br>
@@ -54,6 +62,7 @@
         <br>
         <button ng-click="saveValue()">Save</button><button ng-click="cancelEntry()">Cancel</button> <span ng-if="$parent.valueError" class="error">{{$parent.valueError}}</span>
       </div>
+
       <div class="column-20" ng-if="displayValue">
         <h2>Key: {{key}}</h2>
         <code>
@@ -64,7 +73,6 @@
         <button ng-click="editValue()">Edit</button> <button ng-click="deleteValue()">Delete</button>
       </div>
     </div>
-
 
     <script src="/js/application.js"></script>
   </body>
