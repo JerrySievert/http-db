@@ -5,6 +5,8 @@ var user = require('./lib/user');
 
 var config = require('./config.json');
 
+var pack = require('./package.json');
+
 // Create a server with a host and port
 var server = new Hapi.Server(config.server.host, config.server.port, {
   payload: {
@@ -13,6 +15,60 @@ var server = new Hapi.Server(config.server.host, config.server.port, {
 });
 
 server.pack.register(require('hapi-auth-jwt-request'), function(err) {
+  server.auth.strategy('token', 'bearer-access-token', {
+    validateFunc: function(decoded, request, callback) {
+      token.validateToken(decoded, function(err) {
+        if (err) {
+          callback(null, false);
+        } else {
+          callback(null, true, decoded);
+        }
+      });
+    },
+    secret: config.token.secret
+  });
+
+  server.route({
+    method: 'GET',
+    path: '/database',
+    config: {
+      auth: "token"
+    },
+    handler: function(request, reply) {
+      var data = {
+        status: "ok",
+        name: pack.name,
+        version: pack.version,
+        port: config.server.port,
+        host: config.server.host
+      };
+
+      reply(data).type('application/json');
+    }
+  });
+
+  server.route({
+    method: 'GET',
+    path: '/database/stores',
+    config: {
+      auth: "token"
+    },
+    handler: function(request, reply) {
+      user.retrieve(request.auth.credentials.username, function (err, user) {
+        if (err) {
+          replay({ "status": "error", "error": err });
+        } else {
+          var data = {
+            status: "ok",
+            stores: user.stores
+          };
+
+          reply(data).type('application/json');
+        }
+      });
+    }
+  });
+
   server.auth.strategy('store', 'bearer-access-token', {
     validateFunc: function(decoded, request, callback) {
       token.validateToken(decoded, function(err) {
@@ -34,9 +90,10 @@ server.pack.register(require('hapi-auth-jwt-request'), function(err) {
     secret: config.token.secret
   });
 
+
   server.route({
     method: 'GET',
-    path: '/data/{store}/{id}',
+    path: '/database/value/{store}/{id}',
     config: {
       auth: 'store'
     },
@@ -54,7 +111,7 @@ server.pack.register(require('hapi-auth-jwt-request'), function(err) {
 
   server.route({
     method: 'GET',
-    path: '/data/{store}',
+    path: '/database/keys/{store}',
     config: {
       auth: 'store'
     },
@@ -72,7 +129,7 @@ server.pack.register(require('hapi-auth-jwt-request'), function(err) {
 
   server.route({
     method: 'GET',
-    path: '/filter/{store}',
+    path: '/database/filter/{store}',
     config: {
       auth: 'store'
     },
@@ -91,7 +148,7 @@ server.pack.register(require('hapi-auth-jwt-request'), function(err) {
 
   server.route({
     method: 'POST',
-    path: '/data/{store}/{id}',
+    path: '/database/value/{store}/{id}',
     config: {
       auth: 'store'
     },
@@ -115,7 +172,7 @@ server.pack.register(require('hapi-auth-jwt-request'), function(err) {
 
   server.route({
     method: 'POST',
-    path: '/query/{store}',
+    path: '/database/query/{store}',
     config: {
       auth: 'store'
     },
@@ -129,7 +186,7 @@ server.pack.register(require('hapi-auth-jwt-request'), function(err) {
 
   server.route({
     method: 'DELETE',
-    path: '/data/{store}/{id}',
+    path: '/database/value/{store}/{id}',
     config: {
       auth: 'store'
     },
@@ -143,7 +200,7 @@ server.pack.register(require('hapi-auth-jwt-request'), function(err) {
 
   server.route({
     method: 'GET',
-    path: '/all/{store}',
+    path: '/database/all/{store}',
     config: {
       auth: 'store'
     },
@@ -184,6 +241,23 @@ if (config.public) {
         }
       },
       handler: require('./api/login')
+    });
+
+    server.route({
+      method: 'GET',
+      path: '/api/v1/token',
+      handler: require('./api/token'),
+      config: {
+        auth: {
+          mode: 'try',
+          strategy: 'session'
+        },
+        plugins: {
+          'hapi-auth-cookie': {
+            redirectTo: false
+          }
+        }
+      }
     });
 
     server.route({
