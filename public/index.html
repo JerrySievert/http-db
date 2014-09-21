@@ -52,7 +52,7 @@
         <textarea ng-model="$parent.value" placeholder='{ "foo": "bar" }'>
         </textarea>
         <br>
-        <button ng-click="saveValue()">Save</button><button ng-click="cancelValue()">Cancel</button> <span ng-if="$parent.valueError" class="error">{{$parent.valueError}}</span>
+        <button ng-click="saveValue()">Save</button><button ng-click="cancelEntry()">Cancel</button> <span ng-if="$parent.valueError" class="error">{{$parent.valueError}}</span>
       </div>
       <div class="column-20" ng-if="displayValue">
         <h2>Key: {{key}}</h2>

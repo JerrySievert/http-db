@@ -60,6 +60,14 @@ app.controller('applicationController', function ($scope, $http, $window) {
     $scope.displayValue = true;
   };
 
+  $scope.cancelEntry = function ( ) {
+    $scope.value = $scope.oldValue;
+    $scope.displayEdit = false;
+    $scope.displayCreate = false;
+    $scope.displayValue = false;
+    $scope.displayKeys = true;
+  };
+
   $scope.saveValue = function ( ) {
     var toSave;
     $scope.valueError = false;

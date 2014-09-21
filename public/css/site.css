@@ -1016,7 +1016,7 @@ pre {
   white-space: pre-wrap;
   line-height: 1em;
   background-color: #eee;
-  margin-left: 5%;
+  margin-left: 1.5em;
   margin-bottom: 1.5em; }
 
 code {
@@ -1054,6 +1054,7 @@ hr {
 
 table {
   width: 100%;
+  margin-left: 1.5em;
   border: 1px solid #333; }
 
 th {
@@ -1075,12 +1076,12 @@ textarea {
   min-height: 20em;
   padding: 0.6em 1.5em;
   max-width: 80%;
-  margin-left: 5%;
+  margin-left: 1.5em;
   width: 100%; }
 
 input {
   padding: 0.6em 1.5em;
-  margin-left: 5%; }
+  margin-left: 1.5em; }
 
 .information {
   padding-top: 24px;
