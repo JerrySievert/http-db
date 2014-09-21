@@ -1012,7 +1012,7 @@ p {
 
 pre {
   padding: 0.6em 1.5em;
-  max-width: 80%;
+  max-width: 90%;
   white-space: pre-wrap;
   line-height: 1em;
   background-color: #eee;
@@ -1053,7 +1053,7 @@ hr {
   color: #999; }
 
 table {
-  width: 100%;
+  width: 90%;
   margin-left: 1.5em;
   border: 1px solid #333; }
 
@@ -1075,9 +1075,9 @@ tr:nth-child(odd) {
 textarea {
   min-height: 20em;
   padding: 0.6em 1.5em;
-  max-width: 80%;
+  max-width: 90%;
   margin-left: 1.5em;
-  width: 100%; }
+  width: 90%; }
 
 input {
   padding: 0.6em 1.5em;
