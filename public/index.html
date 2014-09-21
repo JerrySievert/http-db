@@ -1,0 +1,71 @@
+<!doctype html>
+<html ng-app="Application">
+  <head>
+    <title>ReadyB</title>
+    <link rel="stylesheet" href="/css/site.css">
+    <link rel="stylesheet" href="/css/application.css">
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
+  </head>
+  <body ng-controller="applicationController">
+    <h1>ReadyB</h1>
+    <span ng-if="database">
+      {{database.name}} - v{{database.version}}
+    </span>
+    <hr>
+    <div class="container">
+      <div class="column-4 stores" ng-if="stores">
+        <strong>Stores</strong>
+        <hr>
+        <ul ng-repeat="store in stores">
+          <li><a href="" ng-click="storeClick($event)">{{store}}</a></li>
+        </ul>
+        <br>
+      </div>
+
+      <div class="column-20" ng-if="displayKeys">
+        <h2>{{store}}</h2>
+        <table ng-if="values.length">
+          <thead>
+            <tr>
+              <th>Key</th>
+              <th>Value</th>
+            </tr>
+          </thead>
+          <tr ng-repeat="data in values">
+            <td><a href="" ng-click="keyClick($event)">{{data.key}}</a></td>
+            <td>{{data.value}}</td>
+          </tr>
+        </table>
+        <br ng-if="values.length">
+        <button ng-click="createEntry()">Create Entry</button>
+      </div>
+      <div class="column-20" ng-if="displayEdit">
+        <h2>Key: {{key}}</h2>
+        <textarea ng-model="$parent.value">
+        </textarea>
+        <br>
+        <button ng-click="saveValue()">Save</button><button ng-click="cancelValue()">Cancel</button> <span ng-if="$parent.valueError" class="error">{{$parent.valueError}}</span>
+      </div>
+      <div class="column-20" ng-if="displayCreate">
+        <input ng-model="$parent.key" placeholder="key" value="{{key}}">
+        <br>
+        <textarea ng-model="$parent.value" placeholder='{ "foo": "bar" }'>
+        </textarea>
+        <br>
+        <button ng-click="saveValue()">Save</button><button ng-click="cancelValue()">Cancel</button> <span ng-if="$parent.valueError" class="error">{{$parent.valueError}}</span>
+      </div>
+      <div class="column-20" ng-if="displayValue">
+        <h2>Key: {{key}}</h2>
+        <code>
+          <pre>
+{{value}}
+          </pre>
+        </code>
+        <button ng-click="editValue()">Edit</button> <button ng-click="deleteValue()">Delete</button>
+      </div>
+    </div>
+
+
+    <script src="/js/application.js"></script>
+  </body>
+</html>
