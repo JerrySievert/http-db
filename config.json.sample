@@ -10,5 +10,6 @@
     "host": "localhost",
     "port": 8765
   },
-  "public": true
+  "public": true,
+  "user": false
 }
