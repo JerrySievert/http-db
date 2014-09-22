@@ -14,10 +14,6 @@ var server = new Hapi.Server(config.server.host, config.server.port, {
   }
 });
 
-if (config.user) {
-  process.setuid(config.user);
-}
-
 server.pack.register(require('hapi-auth-jwt-request'), function(err) {
   server.auth.strategy('token', 'bearer-access-token', {
     validateFunc: function(decoded, request, callback) {
@@ -300,4 +296,8 @@ if (config.public) {
 // Start the server
 server.start(function() {
   console.log('Server running at:', server.info.uri);
+
+  if (config.user) {
+    process.setuid(config.user);
+  }
 });
