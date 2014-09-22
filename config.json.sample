@@ -5,5 +5,12 @@
   "token": {
     "secret": "mysecret",
     "expiration": 3600000
-  }
+  },
+  "server": {
+    "host": "localhost",
+    "port": 8765,
+    "hostname": "readyb.rocks"
+  },
+  "public": true,
+  "user": false
 }

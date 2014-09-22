@@ -5,11 +5,17 @@ var token = require('../lib/token');
 var config = require('../config.json');
 
 var argv = require('yargs')
-  .usage('Usage: $0 -u [username] -e [expire milliseconds]')
-  .demand([ 'u' ])
-  .default({ e: config.token.expiration })
+  .usage('Usage: $0 -u [username] -e [expire seconds]')
+  .demand(['u'])
+  .
+default ({
+  e: (config.token.expiration * 1000)
+})
   .argv;
 
-var encoded = jwt.encode({ username: argv.u, expires: (+new Date()) + argv.e }, config.token.secret);
+var encoded = jwt.encode({
+  username: argv.u,
+  expires: Math.ceil(((+new Date()) + argv.e) / 1000)
+}, config.token.secret);
 
 console.log(encoded);
