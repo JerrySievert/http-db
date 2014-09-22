@@ -20,6 +20,12 @@
           <li><a href="" ng-click="storeClick($event)">{{store}}</a></li>
         </ul>
         <br>
+        <strong>Account</strong>
+        <hr>
+        <ul>
+          <li><a href="" ng-click="accoutDetails()">details</a></li>
+          <li><a href="" ng-click="accountToken()">token</a></li>
+        </ul>
       </div>
 
       <div class="column-20" ng-if="displayWelcome && stores">
@@ -47,7 +53,10 @@ var Client = require('http-db-client');
 var db = new Client('http://{{database.hostname}}:{{database.port}}', myToken);
           </pre>
         </code>
-
+        </p>
+        <p>
+          See Also: <a href="https://github.com/JerrySievert/http-db-client" target="_default">http-db-client</a>
+        </p>
       </div>
       <div class="column-20" ng-if="displayKeys">
         <h2>{{store}}</h2>

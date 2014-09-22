@@ -994,9 +994,10 @@ a:visited {
   color: purple; }
 
 ul, ol {
+  list-style-type: none;
   padding: 0;
   margin: 0;
-  margin-left: 1.5em; }
+  margin-left: 0.6em; }
 
 li {
   line-height: 1.5em; }
