@@ -30,6 +30,24 @@
         <p>
           Select a store to the left to continue editing.
         </p>
+        <p>
+          Installing:
+          <code>
+           <pre>
+$ npm install http-db-client
+            </pre>
+         </code>
+      </p>
+      <p>
+        Usage:
+        <code>
+          <pre>
+var Client = require('http-db-client');
+
+var db = new Client('http://{{database.hostname}}:{{database.port}}', myToken);
+          </pre>
+        </code>
+
       </div>
       <div class="column-20" ng-if="displayKeys">
         <h2>{{store}}</h2>
