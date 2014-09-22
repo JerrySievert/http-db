@@ -40,7 +40,8 @@ server.pack.register(require('hapi-auth-jwt-request'), function(err) {
         name: pack.name,
         version: pack.version,
         port: config.server.port,
-        host: config.server.host
+        host: config.server.host,
+        hostname: config.server.hostname
       };
 
       reply(data).type('application/json');
