@@ -118,7 +118,7 @@ test('store returns the correct results when filter is applied and no results', 
 
   store.put('test', '1', '{ "foo": [1, 2] }', function () {
     store.put('test', '2', '{ "foo": "baz" }', function () {
-      store.filter('test', 'foo', 1, function (err, stream) {
+      store.filter('test', 'foo', 9, function (err, stream) {
         t.error(err, 'no error is returned');
 
         var count = 0;
@@ -130,7 +130,7 @@ test('store returns the correct results when filter is applied and no results', 
         stream.on('end', function ( ) {
           store.del('test', '1', function () {
             store.del('test', '2', function () {
-              t.equal(count, 1, 'the correct number of results are returned');
+              t.equal(count, 0, 'the correct number of results are returned');
             });
           });
 
