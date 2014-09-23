@@ -113,8 +113,8 @@ test('store returns the correct results when filter is applied', function (t) {
   });
 });
 
-test('store returns the correct results when filter is applied as an array', function (t) {
-  t.plan(3);
+test('store returns the correct results when filter is applied and no results', function (t) {
+  t.plan(2);
 
   store.put('test', '1', '{ "foo": [1, 2] }', function () {
     store.put('test', '2', '{ "foo": "baz" }', function () {
@@ -125,7 +125,9 @@ test('store returns the correct results when filter is applied as an array', fun
         stream.on('data', function (data) {
           data = JSON.parse(data);
           count++;
-          t.equal(data.key, '1', 'the correct key is returned');
+        });
+
+        stream.on('end', function ( ) {
           store.del('test', '1', function () {
             store.del('test', '2', function () {
               t.equal(count, 1, 'the correct number of results are returned');
