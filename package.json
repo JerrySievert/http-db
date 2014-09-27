@@ -9,7 +9,7 @@
   "bin": {
     "rdb_add_store": "./bin/rdb_add_store",
     "rdb_add_user": "./bin/rdb_add_user",
-    "rdb_create_token": "./bin/rdb/create_token",
+    "rdb_create_token": "./bin/rdb_create_token",
     "rdb_init": "./bin/rdb_init",
     "readyb": "./bin/readyb"
   },
