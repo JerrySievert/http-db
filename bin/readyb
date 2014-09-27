@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 
-var server = require('../lib/server');
 var fs = require('fs');
+
+var context = require('../lib/context');
 
 var argv = require('yargs')
   .usage('Usage: $0 -c [config.json]')
@@ -18,5 +19,9 @@ try {
   console.log("ERROR: Unable to load config file");
   process.exit(1);
 }
+
+context.config = config;
+
+var server = require('../lib/server');
 
 server.startServer(config);
