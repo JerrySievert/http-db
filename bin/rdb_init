@@ -1,0 +1,111 @@
+#!/usr/bin/env node
+
+var readline = require('readline-sync');
+var fs = require('fs');
+var format = require('json-nice');
+
+var user = require('../lib/user');
+
+var sample = fs.readFileSync(__dirname + '/../config.json.sample');
+var config = JSON.parse(sample);
+
+var cwd = process.cwd();
+
+console.log("Initializing ReadyB ...");
+
+// base directory
+var base = readline.question("Base Directory (" + cwd + "): ");
+
+if (base === "") {
+  base = cwd;
+}
+
+// user directory
+var users = readline.question("User Directory (" + base + "/users): ");
+
+if (users === "") {
+  users = base + "/users";
+}
+
+// store directory
+var stores = readline.question("Data Directory (" + base + "/stores): ");
+
+if (stores === "") {
+  stores = base + "/stores";
+}
+
+// try to create the directories
+createDirectories(base, users, stores);
+
+// and write the config
+config.dataDir = stores;
+config.userDir = users;
+
+fs.writeFileSync(base + "/config.json", format(config), 'utf8');
+
+// admin username
+var admin = readline.question("Admin User (admin): ");
+
+if (admin === "") {
+  admin = 'admin';
+}
+
+// admin password
+var password = getPassword();
+
+// create the user
+user.config.userDir = users;
+user.create({ username: admin, active: true, admin: true, password: password }, function (err) {
+  if (err) {
+    console.log("Error Creating User: " + err);
+    process.exit(1);
+  } else {
+    console.log("Ready.");
+    console.log("\nUsage: readyb -c " + base + "/config.json");
+  }
+});
+
+
+
+function getPassword ( ) {
+  var pw1 = readline.question("Password: ", { noEchoBack: true });
+  var pw2 = readline.question("Password (again): ", { noEchoBack: true });
+
+  if (pw1 !== pw2) {
+    console.log("Passwords do not Match, Try Again");
+
+    return getPassword();
+  } else {
+    return pw1;
+  }
+}
+
+function createDirectories (base, users, stores) {
+  createDirectory(base);
+  createDirectory(users);
+  createDirectory(stores);
+}
+
+function createDirectory (dir) {
+  var stats;
+
+  try {
+    stats = fs.statSync(dir);
+  } catch (err) {
+
+  }
+
+  if (stats) {
+    if (!stats.isDirectory()) {
+      console.log("ERROR: Unable to create directory \"" + dir + "\"");
+      process.exit(1);
+    }
+  } else {
+    try {
+      fs.mkdirSync(dir);
+    } catch (err) {
+      console.log("ERROR: Unable to create directory \"" + dir + "\"");
+      process.exit(1);
+    }
+  }
+}
