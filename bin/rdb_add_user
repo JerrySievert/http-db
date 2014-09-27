@@ -1,0 +1,33 @@
+#!/usr/bin/env node
+
+var user = require('../lib/user');
+var config = require('../config.json');
+
+var argv = require('yargs')
+  .usage('Usage: $0 -a -u [username] -p [password]')
+  .demand(['u', 'p'])
+  .boolean('a')
+  .describe('a', 'admin')
+  .describe('u', 'username')
+  .describe('p', 'password')
+  .alias('a', 'admin')
+  .alias('u', 'username')
+  .alias('p', 'password')
+  .default('a', false)
+  .argv;
+
+var userData = {
+  username: argv.u,
+  password: argv.p,
+  active: true,
+  admin: argv.a,
+  stores: []
+};
+
+user.create(userData, function(err) {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log('User added');
+  }
+});
