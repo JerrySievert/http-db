@@ -8,8 +8,7 @@
   },
   "server": {
     "host": "localhost",
-    "port": 8765,
-    "hostname": "readyb.rocks"
+    "port": 8765
   },
   "public": true,
   "user": false
