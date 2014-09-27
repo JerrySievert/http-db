@@ -7,10 +7,9 @@ var config = require('../config.json');
 var argv = require('yargs')
   .usage('Usage: $0 -u [username] -e [expire seconds]')
   .demand(['u'])
-  .
-default ({
-  e: (config.token.expiration * 1000)
-})
+  .default({
+    e: (config.token.expiration * 1000)
+  })
   .argv;
 
 var encoded = jwt.encode({
