@@ -145,7 +145,7 @@ test('closing databases works', function(t) {
 test('clean up database store', function(t) {
   t.plan(1);
 
-  leveldown.destroy(user.config.userDir + "/users", function(err) {
+  leveldown.destroy(user.config.userDir, function(err) {
     t.error(err, 'no error on user directory destroy');
   });
 });
