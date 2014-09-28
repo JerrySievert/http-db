@@ -63,6 +63,7 @@ user.create({
   username: admin,
   active: true,
   admin: true,
+  stores: [ ],
   password: password
 }, function(err) {
   if (err) {
