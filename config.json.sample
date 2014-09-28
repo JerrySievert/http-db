@@ -6,6 +6,10 @@
     "secret": "mysecret",
     "expiration": 3600000
   },
+  "cookie": {
+    "password": "mypassword",
+    "name": "cookiename"
+  },
   "server": {
     "host": "localhost",
     "port": 8765
