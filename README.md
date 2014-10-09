@@ -1,8 +1,8 @@
 # http-db
 
-An experimental http based database, running on top of LevelDB.
+An experimental http based database, running on top of LevelDB and (db-engine)[https://github.com/JerrySievert/db-engine].
 
-See also `http-db-client`.
+See also (http-db-client)[https://github.com/JerrySievert/http-db-client].
 
 This project is in production, but not quite ready for public consumption.
 
