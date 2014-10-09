@@ -104,7 +104,7 @@ var db = new Client('http://{{database.hostname}}:{{database.port}}', myToken);
       </div>
 
       <!-- display key/value -->
-      <div class="column-20" ng-if="displayValue">
+      <div class="column-20" ng-if="display == 'Value'">
         <h2>Key: {{key}}</h2>
         <code>
           <pre>
