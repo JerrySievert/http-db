@@ -1,0 +1,47 @@
+#!/usr/bin/env node
+
+var argv = require('yargs')
+  .usage('Usage: $0 -c [config.json] -a -u [username] -p [password]')
+  .demand(['c', 'u', 'p'])
+  .boolean('a')
+  .describe('a', 'admin')
+  .describe('u', 'username')
+  .describe('p', 'password')
+  .alias('a', 'admin')
+  .alias('u', 'username')
+  .alias('p', 'password')
+  .default('a', false)
+  .argv;
+
+var fs = require('fs');
+
+var config;
+
+try {
+  var file = fs.readFileSync(argv.c, 'utf8');
+
+  config = JSON.parse(file);
+} catch (err) {
+  console.log("ERROR: Unable to load config file");
+  process.exit(1);
+}
+
+context.config = config;
+
+var user = require('../lib/user');
+
+var userData = {
+  username: argv.u,
+  password: argv.p,
+  active: true,
+  admin: argv.a,
+  stores: []
+};
+
+user.create(userData, function(err) {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log('User added');
+  }
+});

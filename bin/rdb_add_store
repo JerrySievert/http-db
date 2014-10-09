@@ -1,12 +1,27 @@
 #!/usr/bin/env node
 
-var user = require('../lib/user');
-var config = require('../config.json');
-
 var argv = require('yargs')
-  .usage('Usage: $0 -u [username] -s [store]')
-  .demand([ 'u', 's' ])
+  .usage('Usage: $0 -c [config.json] -u [username] -s [store]')
+  .demand([ 'c', 'u', 's' ])
   .argv;
+
+var fs = require('fs');
+var context = require('../lib/context');
+
+var config;
+
+try {
+  var file = fs.readFileSync(argv.c, 'utf8');
+
+  config = JSON.parse(file);
+} catch (err) {
+  console.log("ERROR: Unable to load config file");
+  process.exit(1);
+}
+
+context.config = config;
+
+var user = require('../lib/user');
 
 user.retrieve(argv.u, function (err, userData) {
   if (err) {

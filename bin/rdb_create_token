@@ -1,0 +1,34 @@
+#!/usr/bin/env node
+
+var jwt = require('jwt-simple');
+var argv = require('yargs')
+  .usage('Usage: $0 -c [config.json] -u [username] -e [expire seconds]')
+  .demand(['c', 'u'])
+  .default({
+    e: (config.token.expiration * 1000)
+  })
+  .argv;
+
+var fs = require('fs');
+
+var config;
+
+try {
+  var file = fs.readFileSync(argv.c, 'utf8');
+
+  config = JSON.parse(file);
+} catch (err) {
+  console.log("ERROR: Unable to load config file");
+  process.exit(1);
+}
+
+context.config = config;
+
+var token = require('../lib/token');
+
+var encoded = jwt.encode({
+  username: argv.u,
+  expires: Math.ceil(((+new Date()) + argv.e) / 1000)
+}, config.token.secret);
+
+console.log(encoded);

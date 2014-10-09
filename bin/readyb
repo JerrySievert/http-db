@@ -1,0 +1,27 @@
+#!/usr/bin/env node
+
+var fs = require('fs');
+
+var context = require('../lib/context');
+
+var argv = require('yargs')
+  .usage('Usage: $0 -c [config.json]')
+  .demand(['c'])
+  .argv;
+
+var config;
+
+try {
+  var file = fs.readFileSync(argv.c, 'utf8');
+
+  config = JSON.parse(file);
+} catch (err) {
+  console.log("ERROR: Unable to load config file");
+  process.exit(1);
+}
+
+context.config = config;
+
+var server = require('../lib/server');
+
+server.startServer(config);

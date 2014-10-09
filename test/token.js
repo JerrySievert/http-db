@@ -1,5 +1,10 @@
 var test = require('tape');
+var context = require('../lib/context');
 
+context.config = {};
+context.config.token = {
+  expiration: 3600
+};
 var token = require('../lib/token');
 
 test('if no token is passed it returns an error', function(t) {
@@ -30,7 +35,7 @@ test('if a token is not expired it will be valid', function(t) {
   });
 });
 
-test('creating a token make a valid token', function(t) {
+test('creating a token makes a valid token', function(t) {
   t.plan(1);
 
   token.validateToken(token.createToken('test'), function(err) {

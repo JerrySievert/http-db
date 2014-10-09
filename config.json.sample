@@ -6,10 +6,13 @@
     "secret": "mysecret",
     "expiration": 3600000
   },
+  "cookie": {
+    "password": "mypassword",
+    "name": "cookiename"
+  },
   "server": {
     "host": "localhost",
-    "port": 8765,
-    "hostname": "readyb.rocks"
+    "port": 8765
   },
   "public": true,
   "user": false
