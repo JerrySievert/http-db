@@ -984,6 +984,7 @@ a {
   color: #0099ff;
   margin: 0;
   padding: 0;
+  text-decoration: none;
   vertical-align: baseline; }
 
 a:hover {
@@ -991,7 +992,7 @@ a:hover {
   color: #ff6600; }
 
 a:visited {
-  color: purple; }
+  text-decoration: none; }
 
 ul, ol {
   list-style-type: none;
@@ -1014,6 +1015,7 @@ p {
   padding-bottom: 0.4em; }
 
 pre {
+  overflow: scroll;
   max-width: 90%;
   white-space: pre-wrap;
   line-height: 1em;

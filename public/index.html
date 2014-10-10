@@ -9,7 +9,8 @@
   <body ng-controller="applicationController">
     <h1>ReadyB</h1>
     <span ng-if="database">
-      {{database.name}} - v{{database.version}}
+      Server: <a href="{{database.server.repo}}">{{database.server.name}}</a>,
+      Engine: <a href="{{database.engine.repo}}">{{database.engine.name}}</a>
     </span>
     <hr>
 
@@ -61,7 +62,7 @@ var db = new Client('http://{{database.hostname}}:{{database.port}}', myToken);
           See Also: <a href="https://github.com/JerrySievert/http-db-client" target="_default">http-db-client</a>
         </p>
         <h3>RESTful Interface</h3>
-        ReadyB provides a RESTful interface that is accessible with a Bearer Token. 
+        ReadyB provides a RESTful interface that is accessible with a Bearer Token.
 
       </div>
 
@@ -113,6 +114,27 @@ var db = new Client('http://{{database.hostname}}:{{database.port}}', myToken);
         </code>
         <button ng-click="editValue()">Edit</button> <button ng-click="deleteValue()">Delete</button>
       </div>
+
+      <!-- token -->
+      <div class="column-20" ng-if="display == 'Token'">
+        <h2>Token</h2>
+        <p>
+          This is your token.  You can use it as your bearer token for authorization.
+          You can use it with <a href="https://github.com/JerrySievert/http-db-client">http-db-client</a>.
+        </p>
+        <code>
+          <pre>
+var Client = require('http-db-client');
+
+var db = new Client('http://localhost:8765', '{{token}}');
+          </pre>
+        </code>
+        <p>
+          Your Token:
+          <input value="{{token}}" size="100">
+        </p>
+      </div>
+
     </div>
 
     <script src="/js/application.js"></script>
