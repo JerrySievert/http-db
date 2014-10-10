@@ -1,12 +1,11 @@
-var app = angular.module('Application', []);
-app.controller('applicationController', function($scope, $http, $window) {
+var app = angular.module('Application', [ ]);
+app.controller('applicationController', function ($scope, $http, $window) {
   $scope.display = 'Welcome';
 
   $http.get('/api/v1/token').success(function(data) {
     $http.defaults.headers.common.Authorization = "Bearer " + data.token;
 
     $http.get('/database').success(function(data) {
-      console.log(data);
       $scope.database = data;
     });
 
@@ -15,14 +14,14 @@ app.controller('applicationController', function($scope, $http, $window) {
     });
   }).error(function(error) {});
 
-  $scope.storeClick = function(event) {
+  $scope.storeClick = function (event) {
     $scope.store = event.srcElement.firstChild.data;
 
     $http.get('/database/all/' + $scope.store, {
-      transformResponse: function(h, d) {
+      transformResponse: function (h, d) {
         return h;
       }
-    }).success(function(data) {
+    }).success(function (data) {
       $scope.display = 'Keys';
 
       var parts = data.split("\n");
@@ -39,7 +38,7 @@ app.controller('applicationController', function($scope, $http, $window) {
     });
   };
 
-  $scope.keyClick = function(event) {
+  $scope.keyClick = function (event) {
     $scope.key = event.srcElement.firstChild.data;
     $http.get('/database/value/' + $scope.store + '/' + $scope.key).success(
       function(data) {
@@ -48,23 +47,23 @@ app.controller('applicationController', function($scope, $http, $window) {
       });
   };
 
-  $scope.editValue = function() {
+  $scope.editValue = function ( ) {
     $scope.valueError = null;
     $scope.oldValue = $scope.value;
     $scope.display = 'Edit';
   };
 
-  $scope.cancelValue = function() {
+  $scope.cancelValue = function ( ) {
     $scope.value = $scope.oldValue;
     $scope.display = 'Value';
   };
 
-  $scope.cancelEntry = function() {
+  $scope.cancelEntry = function ( ) {
     $scope.value = $scope.oldValue;
     $scope.display = 'Keys';
   };
 
-  $scope.saveValue = function() {
+  $scope.saveValue = function ( ) {
     var toSave;
     $scope.valueError = false;
 
@@ -95,7 +94,7 @@ app.controller('applicationController', function($scope, $http, $window) {
     });
   };
 
-  $scope.deleteValue = function() {
+  $scope.deleteValue = function ( ) {
     $http.delete('/database/value/' + $scope.store + '/' + $scope.key).success(
       function() {
         $scope.display = 'none';
@@ -114,14 +113,14 @@ app.controller('applicationController', function($scope, $http, $window) {
       });
   };
 
-  $scope.createEntry = function() {
+  $scope.createEntry = function ( ) {
     $scope.valueError = null;
     $scope.key = "";
     $scope.value = "";
     $scope.display = 'Create';
   };
 
-  $scope.accountToken = function() {
+  $scope.accountToken = function ( ) {
     $http.get('/api/v1/token').success(function(data) {
       $scope.token = data.token;
       $scope.display = 'Token';
@@ -130,7 +129,7 @@ app.controller('applicationController', function($scope, $http, $window) {
 });
 
 
-function render(key, value, indent) {
+function render (key, value, indent) {
   var text = '',
     i;
 
