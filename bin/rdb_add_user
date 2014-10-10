@@ -14,6 +14,7 @@ var argv = require('yargs')
   .argv;
 
 var fs = require('fs');
+var context = require('../lib/context');
 
 var config;
 

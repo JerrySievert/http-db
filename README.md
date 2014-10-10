@@ -41,7 +41,7 @@ _server.port_ - port to listen on
 _public_ - whether a public website should be available
 
 _user_ - user to drop priviledges to if run by root
- 
+
 
 
 ## RESTful Interface
@@ -115,7 +115,7 @@ _Returns:_
 
 ```
 {
-  "status": "error", 
+  "status": "error",
   "error": "payload should be JSON"
 }
 ```
@@ -124,7 +124,18 @@ _Returns:_
 
 ### DELETE /database/value/{store}/{id}
 
+Deletes an entry for a `store`.
+
+_Returns:_
+
+```
+{
+  "status": "ok"
+}
+```
+
 ### GET /database/keys/{store}
+
 
 ### GET /database/all/{store}
 
