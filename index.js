@@ -57,7 +57,7 @@ server.pack.register(require('hapi-auth-jwt-request'), function(err) {
     handler: function(request, reply) {
       user.retrieve(request.auth.credentials.username, function (err, user) {
         if (err) {
-          replay({ "status": "error", "error": err });
+          reply({ "status": "error", "error": err });
         } else {
           var data = {
             status: "ok",
