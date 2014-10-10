@@ -1,7 +1,7 @@
 var user = require('../lib/user');
 
 
-function login(request, reply) {
+function login (request, reply) {
   if (request.auth.isAuthenticated) {
     return reply(JSON.stringify({
       "status": "ok"

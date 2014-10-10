@@ -6,7 +6,7 @@ var shell = require('gulp-shell');
 
 var pack = require('./package.json');
 
-gulp.task('complexity', function () {
+gulp.task('complexity', function ( ) {
   gulp.src([
     'index.js',
     'lib/*.js'
@@ -22,7 +22,7 @@ gulp.task('complexity', function () {
   .pipe(gulp.dest('complexity'));
 });
 
-gulp.task('jshint', function () {
+gulp.task('jshint', function ( ) {
   gulp.src([
     'index.js',
     'lib/*.js'
@@ -36,6 +36,6 @@ gulp.task('test', shell.task([
   './node_modules/istanbul/lib/cli.js cover ./node_modules/tape/bin/tape test/*.js'
 ]));
 
-gulp.task('default', [ 'test', 'jshint', 'complexity' ], function () {
+gulp.task('default', [ 'test', 'jshint', 'complexity' ], function ( ) {
 
 });

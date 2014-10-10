@@ -77,7 +77,7 @@ user.create({
 
 
 
-function getPassword() {
+function getPassword ( ) {
   var pw1 = readline.question("Password: ", {
     noEchoBack: true
   });
@@ -94,13 +94,13 @@ function getPassword() {
   }
 }
 
-function createDirectories(base, users, stores) {
+function createDirectories (base, users, stores) {
   createDirectory(base);
   createDirectory(users);
   createDirectory(stores);
 }
 
-function createDirectory(dir) {
+function createDirectory (dir) {
   var stats;
 
   try {
