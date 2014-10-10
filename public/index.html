@@ -96,6 +96,7 @@ var db = new Client('http://{{database.hostname}}:{{database.port}}', myToken);
 
       <!-- create key/value -->
       <div class="column-20" ng-if="display == 'Create'">
+        <h2>Create Entry<h2>
         <input ng-model="$parent.key" placeholder="key" value="{{key}}">
         <br>
         <textarea ng-model="$parent.value" placeholder='{ "foo": "bar" }'>
