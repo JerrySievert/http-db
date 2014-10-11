@@ -27,7 +27,8 @@
     "bcrypt": "^0.8.0",
     "readline-sync": "^0.4.8",
     "json-nice": "^1.0.1",
-    "db-engine": "https://github.com/JerrySievert/db-engine/tarball/master"
+    "db-engine": "https://github.com/JerrySievert/db-engine/tarball/master",
+    "terraformer-geostore-index-btree": "^1.0.0"
   },
   "devDependencies": {
     "tape": "^2.13.4",
