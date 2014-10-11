@@ -1,6 +1,5 @@
 {
   "dataDir": "/tmp/data",
-  "logFile": "/tmp/http-level.log",
   "userDir": "/tmp/users",
   "token": {
     "secret": "mysecret",
@@ -15,5 +14,18 @@
     "port": 8765
   },
   "public": true,
-  "user": false
+  "user": false,
+  "database": {
+    "indexes": [
+      {
+        "type": "btree",
+        "module": "terraformer-geostore-index-btree"
+      }
+    ]
+  },
+  "log": {
+    "type": "file",
+    "filename": "/tmp/db.log",
+    "severity": "INFO"
+  }
 }
