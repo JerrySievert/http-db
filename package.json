@@ -1,6 +1,6 @@
 {
   "name": "http-db",
-  "version": "0.5.5",
+  "version": "0.5.6",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -28,7 +28,8 @@
     "readline-sync": "^0.4.8",
     "json-nice": "^1.0.1",
     "db-engine": "https://github.com/JerrySievert/db-engine/tarball/master",
-    "terraformer-geostore-index-btree": "^1.0.0"
+    "terraformer-geostore-index-btree": "^1.0.0",
+    "boom": "^2.6.0"
   },
   "devDependencies": {
     "tape": "^2.13.4",
