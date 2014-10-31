@@ -1,6 +1,6 @@
 {
   "name": "http-db",
-  "version": "0.5.2",
+  "version": "0.5.4",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -15,7 +15,7 @@
   },
   "preferGlobal": true,
   "author": "Jerry Sievert",
-  "license": "ISC",
+  "license": "BSD",
   "dependencies": {
     "levelup": "^0.19.0",
     "hapi": "^6.5.1",

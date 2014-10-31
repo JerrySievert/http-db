@@ -5,7 +5,7 @@ var argv = require('yargs')
   .usage('Usage: $0 -c [config.json] -u [username] -e [expire seconds]')
   .demand(['c', 'u'])
   .default({
-    e: (config.token.expiration * 1000)
+    e: (86400 * 1000)
   })
   .argv;
 
