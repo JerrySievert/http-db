@@ -2,10 +2,11 @@
 
 var jwt = require('jwt-simple');
 var argv = require('yargs')
-  .usage('Usage: $0 -c [config.json] -u [username] -e [expire seconds]')
+  .usage('Usage: $0 -c [config.json] -u [username] -e [expire seconds] -r')
   .demand(['c', 'u'])
   .default({
-    e: (86400 * 1000)
+    e: (86400 * 1000),
+    r: false
   })
   .argv;
 
@@ -29,7 +30,8 @@ var token = require('../lib/token');
 
 var encoded = jwt.encode({
   username: argv.u,
-  expires: Math.ceil(((+new Date()) + argv.e) / 1000)
+  expires: Math.ceil(((+new Date()) + argv.e) / 1000),
+  readonly: argv.r
 }, config.token.secret);
 
 console.log(encoded);
